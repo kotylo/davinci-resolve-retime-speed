@@ -14,7 +14,7 @@ SetKeyDelay -1
 SetMouseDelay -1
 SetBatchLines -1
 
-; Alt + Shift + S
+; Alt + Control + S
 ^!s::
 Macro1:
 WinActivate, ahk_exe Resolve.exe
