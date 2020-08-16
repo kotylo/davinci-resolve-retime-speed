@@ -6,7 +6,7 @@ This is AHK Script, designed to fix the lack of configuration in otherwise good 
 By default, Resolve opens up the **Retime Frame**, which is not useful at all. People on the [blackmagic forum](https://forum.blackmagicdesign.com/viewtopic.php?f=33&t=102519) have raised the Feature Request for v17, but instead of waiting for *possible* changes, let's act and achieve auto preselection of **Retime Speed** now!
 
 # Installing
-You just have to run the `resolve-retime-speed.exe` and it will stay in the Windows Tray, listening for hotkey within Davinci Resolve.
+You just have to unzip the script from **bin** folder with **images** folder at the same place where your `resolve-retime-speed.exe` is and run it. The script will stay in the Windows Tray, listening for hotkey within Davinci Resolve.
 
 *Hint:* Put the shortcut inside your `Win+R` → `shell:startup` → `OK` location for starting with Windows.
 
