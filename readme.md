@@ -1,7 +1,7 @@
 # Davinci Resolve Retime Speed
 This is AHK Script, designed to fix the lack of configuration in otherwise good video editor, Davinci Resolve v16. Here is the short Demo what happens, when you press `Alt+S`:
 
-![Demonstration of what happens on hotkey](https://github.com/kotylo/davinci-resolve-retime-speed/misc/intro.gif)
+![Demonstration of what happens on hotkey](https://github.com/kotylo/davinci-resolve-retime-speed/blob/master/misc/intro.gif?raw=true)
 
 By default, Resolve opens up the **Retime Frame**, which is not useful at all. People on the [blackmagic forum](https://forum.blackmagicdesign.com/viewtopic.php?f=33&t=102519) have raised the Feature Request for v17, but instead of waiting for *possible* changes, let's act and achieve auto preselection of **Retime Speed** now!
 
