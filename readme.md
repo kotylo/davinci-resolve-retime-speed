@@ -10,6 +10,7 @@ By default, Resolve opens up the **Retime Frame**, which is not useful at all. P
 ## Prerequisites
 
 * Monitor with 100% scaling
+  * tested on 125% too, it worked. That's because Resolve doesn't honor the Windows scaling.
 * Windows PC
 
 ## Installation
