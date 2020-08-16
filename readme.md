@@ -1,5 +1,5 @@
 # Davinci Resolve Retime Speed
-This is AHK Script, designed to fix the lack of configuration in otherwise good video editor, Davinci Resolve v16. Here is the short Demo what happens, when you press `Alt+S`:
+This is AHK Script, designed to fix the lack of configuration in otherwise good video editor, Davinci Resolve v16. Here is the short Demo what happens after you install this Script and when you press `Alt+Ctrl+S`:
 
 ![Demonstration of what happens on hotkey](https://github.com/kotylo/davinci-resolve-retime-speed/blob/master/misc/intro.gif?raw=true)
 
@@ -11,7 +11,7 @@ You just have to run the `resolve-retime-speed.exe` and it will stay in the Wind
 *Hint:* Put the shortcut inside your `Win+R` → `shell:startup` → `OK` location for starting with Windows.
 
 # Usage
-Just select the video track, Press the `Alt+S` hotkey and see the magic.
+Just select the video track, Press the `Alt+Ctrl+S` hotkey and see the magic.
 
 # Compilation
 You need [AutoHotkey]([https://www.autohotkey.com/download/), it's a Script App that lets you run `.ahk` files and compile them within Windows Context Menu into `.exe`
