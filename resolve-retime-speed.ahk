@@ -163,8 +163,10 @@ If ErrorLevel = 0
     PixelSearch, DropdownBottomLeftX, DropdownBottomLeftY, %RetimeFrameX%, %RetimeFrameY%, %RetimeFrameX%, %A_ScreenHeight%, 0x090909, 0, Fast RGB
     If ErrorLevel
     {
-        MsgBox, 0, , Couldn't find the end of Dropdown Menu`, exiting.
-        Return
+        DropdownBottomLeftX := RetimeFrameX
+        DropdownBottomLeftY := A_ScreenHeight
+        ;MsgBox, 0, , Couldn't find the end of Dropdown Menu`, exiting.
+        ;Return
     }
     /*
     Click, %DropdownBottomLeftX%, %DropdownBottomLeftY%, 0
