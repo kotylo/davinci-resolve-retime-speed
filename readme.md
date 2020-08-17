@@ -33,6 +33,10 @@ You need [AutoHotkey]([https://www.autohotkey.com/download/), it's a Script App 
 Also you can use Pulover's Macro Creator, it's the same Script, but in different format.
 
 # Versioning
+### **v1.0.2**
+- Added tolerance to image search
+- Removed some image dependancies
+
 ### **v1.0.1**
 Add more debugging in case images folder is not present
 
