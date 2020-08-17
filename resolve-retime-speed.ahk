@@ -17,6 +17,16 @@ SetBatchLines -1
 ; Alt + Control + S
 ^!s::
 Macro1:
+IfNotExist, images\edit-page-timeline-settings.png
+{
+    MsgBox, 0, , Please check if folder "images" is found in %A_ScriptDir%
+    Return
+}
+IfWinNotExist, ahk_exe Resolve.exe
+{
+    MsgBox, 0, , Please start Resolve to use Retime Speed selection
+    Return
+}
 WinActivate, ahk_exe Resolve.exe
 Sleep, 333
 /*
