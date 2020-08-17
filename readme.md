@@ -33,6 +33,8 @@ You need [AutoHotkey]([https://www.autohotkey.com/download/), it's a Script App 
 Also you can use Pulover's Macro Creator, it's the same Script, but in different format.
 
 # Versioning
+### **v1.0.1**
+Add more debugging in case images folder is not present
 
 ### **v1.0.0**
 Initial release.
@@ -40,9 +42,6 @@ Initial release.
 - Zooms in automatically in case the dropdown is not in the view
 - Reactivates *Retime Speed* automatically after closing the Retime Curve
   - Note: May not work in case of Zoom, Pitch or other were already selected before
-
-### **v1.0.1**
-Add more debugging in case images folder is not present
 
 # Feature Requests
 - Changing the default 300% speed to 4000% is the next feature that I'm thinking about, because I change it all the time. Let's see if I have energy to change that, otherwise, PR are welcome.
