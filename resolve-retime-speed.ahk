@@ -29,6 +29,7 @@ IfWinNotExist, ahk_exe Resolve.exe
 }
 WinActivate, ahk_exe Resolve.exe
 Sleep, 333
+MouseGetPos, StartMouseX, StartMouseY
 /*
 MsgBox, 0, , Find timeline icon for setting search boundaries:
 */
@@ -57,8 +58,14 @@ Else
 ClickOnRetimeDropdownCount := 0
 ClickOnRetimeDropdown:
 ClickOnRetimeDropdownCount += 1
+MouseGetPos, TempMouseX, TempMouseY
+Click, 0, 0, 0
+Sleep, 10
+Sleep, 50
 CoordMode, Pixel, Window
 PixelSearch, ClipX, ClipY, %ClipSearchBeginX%, %ClipSearchBeginY%, %ClipSearchEndX%, %ClipSearchEndY%, 0xE64B3D, 0, Fast RGB
+Click, %TempMouseX%, %TempMouseY%, 0
+Sleep, 10
 If ErrorLevel
 {
     MsgBox, 0, , Please select video clip first
@@ -82,8 +89,8 @@ Else
 }
 ClipClickableX := ClipX + 20
 ClipClickableY := ClipY + 5
-CoordMode, Pixel, Screen
-ImageSearch, RetimeOpenedX, RetimeOpenedY, %ClipX%, %ClipY%, %ClipEndX%, %ClipSearchEndY%, images\retime-is-opened.png
+CoordMode, Pixel, Window
+ImageSearch, RetimeOpenedX, RetimeOpenedY, %ClipX%, %ClipY%, %ClipEndX%, %ClipSearchEndY%, *1 images\retime-is-opened.png
 If ErrorLevel
 {
     /*
@@ -95,20 +102,17 @@ If ErrorLevel
     MsgBox, 0, , Right Clicked on the selected Video Clip
     */
     MenuTopRightX := ClipClickableX
-    MenuTopRightY := ClipClickableY
     MenuTopRightX += 375
-    MenuTopRightY -= 758
     Sleep, 300
     CoordMode, Pixel, Window
-    ImageSearch, FoundX, FoundY, %ClipClickableX%, %MenuTopRightY%, %MenuTopRightX%, %ClipClickableY%, images\retime-curve.png
+    ImageSearch, FoundX, FoundY, %ClipClickableX%, 0, %MenuTopRightX%, %A_ScreenHeight%, images\retime-curve.png
     CenterImgSrchCoords("images\retime-curve.png", FoundX, FoundY)
     If ErrorLevel = 0
     	Click, %FoundX%, %FoundY%, 0
     If ErrorLevel
     {
-        MsgBox, 49, Continue?, Image / Pixel Not Found.`nPress OK to continue.
-        IfMsgBox, Cancel
-        	Return
+        MsgBox, 0, , Menu has not been opened. Clip is either too narrow or not fully visible. Move it fully inside the view or zoom a bit.
+        Return
     }
     Click, Left, 1
     Sleep, 10
@@ -124,81 +128,84 @@ Else
 }
 Sleep, 200
 CoordMode, Pixel, Window
-ImageSearch, RetimeFrameX, RetimeFrameY, %ClipX%, %ClipSearchBeginY%, %ClipEndX%, %ClipSearchEndY%, images\retime-frame-dropdown.png
-If ErrorLevel = 0
-{
-    /*
-    MsgBox, 0, , Found Retime Frame dropdown
-    */
-    RetimeFrameX -= 9
-    RetimeFrameY += 13
-    Click, %RetimeFrameX%, %RetimeFrameY% Left, 1
-    Sleep, 10
-    Sleep, 400
-    /*
-    MsgBox, 0, , Finding and clicking on "Retime Speed" and "Retime Frame"...
-    */
-    CoordMode, Pixel, Window
-    ImageSearch, MenuRetimeSpeedX, MenuRetimeSpeedY, %ClipX%, %ClipSearchBeginY%, %ClipEndX%, %A_ScreenHeight%, images\menu-retime-speed.png
-    If ErrorLevel = 0
-    {
-        /*
-        MsgBox, 0, , Menu "Retime Speed" has been found!
-        */
-        MenuRetimeSpeedX += 5
-        MenuRetimeSpeedY += 9
-        /*
-        MsgBox, 0, , Click on the Retime Frame first`, so that Speed is last and active
-        */
-        MenuRetimeSpeedY += 25
-        Click, %MenuRetimeSpeedX%, %MenuRetimeSpeedY% Left, 1
-        Sleep, 10
-        Sleep, 200
-        MenuRetimeSpeedY -= 25
-        Click, %MenuRetimeSpeedX%, %MenuRetimeSpeedY% Left, 1
-        Sleep, 10
-        Sleep, 200
-    }
-    Else
-    {
-        /*
-        MsgBox, 0, , Menu has not been opened`, OR Retime Speed is already active?!
-        */
-        CoordMode, Pixel, Window
-        ImageSearch, MenuRetimeFrameX, MenuRetimeFrameY, %ClipX%, %ClipSearchBeginY%, %ClipEndX%, %A_ScreenHeight%, images\menu-retime-frame-active.png
-        If ErrorLevel = 0
-        {
-            /*
-            MsgBox, 0, , Retime Frame has to be declicked and Retime Speed activated
-            */
-            MenuRetimeFrameX += 5
-            MenuRetimeFrameY += 9
-            /*
-            MsgBox, 0, , Click on the Retime Frame first`, ACTIVATE Speed later
-            */
-            Click, %MenuRetimeFrameX%, %MenuRetimeFrameY% Left, 1
-            Sleep, 10
-            Sleep, 200
-            MenuRetimeFrameY -= 25
-            MenuRetimeFrameX += 30
-            Click, %MenuRetimeFrameX%, %MenuRetimeFrameY% Left, 1
-            Sleep, 10
-        }
-    }
-    Click, %ClipX%, %ClipY% Left, 1
-    Sleep, 10
-    Return
-}
-/*
-MsgBox, 0, , No Retime Frame`, need to zoom in?
-*/
-CoordMode, Pixel, Window
 ImageSearch, RetimeSpeedX, RetimeSpeedY, %ClipX%, %ClipSearchBeginY%, %ClipEndX%, %A_ScreenHeight%, images\retime-speed-dropdown-active-check.png
 If ErrorLevel = 0
 {
     /*
     MsgBox, 0, , Retime Speed is already opened`, return
     */
+    Return
+}
+CoordMode, Pixel, Window
+ImageSearch, RetimeFrameX, RetimeFrameY, %ClipX%, %ClipSearchBeginY%, %ClipEndX%, %ClipSearchEndY%, *1 images\retime-frame-dropdown.png
+CenterImgSrchCoords("*1 images\retime-frame-dropdown.png", RetimeFrameX, RetimeFrameY)
+If ErrorLevel = 0
+{
+    /*
+    MsgBox, 0, , Found Retime Frame dropdown
+    */
+    PixelGetColor, RetimeFrameColor, RetimeFrameX, RetimeFrameY
+    Click, %RetimeFrameX%, %RetimeFrameY% Left, 1
+    Sleep, 10
+    Loop, 60
+    {
+        CoordMode, Pixel, Window
+        PixelSearch, FoundX, FoundY, %RetimeFrameX%, %RetimeFrameY%, %RetimeFrameX%, %RetimeFrameY%, %RetimeFrameColor%, 0, Fast RGB
+        Sleep, 50
+    }
+    Until ErrorLevel
+    Sleep, 50
+    RetimeFrameY += 15
+    /*
+    MsgBox, 0, , Finding and clicking on "Retime Speed" and "Retime Frame"...
+    */
+    CoordMode, Pixel, Screen
+    PixelSearch, DropdownBottomLeftX, DropdownBottomLeftY, %RetimeFrameX%, %RetimeFrameY%, %RetimeFrameX%, %A_ScreenHeight%, 0x090909, 0, Fast RGB
+    If ErrorLevel
+    {
+        MsgBox, 0, , Couldn't find the end of Dropdown Menu`, exiting.
+        Return
+    }
+    /*
+    Click, %DropdownBottomLeftX%, %DropdownBottomLeftY%, 0
+    Sleep, 10
+    Sleep, 1000
+    */
+    DropdownTopRightX := DropdownBottomLeftX
+    DropdownTopRightX += 20
+    DropdownTopRightY := DropdownBottomLeftY
+    DropdownTopRightY -= 55
+    /*
+    Click, %DropdownTopRightX%, %DropdownTopRightY%, 0
+    Sleep, 10
+    Sleep, 1000
+    MsgBox, 0, , Finding max 2 checked items and unchecking them
+    */
+    Loop, 2
+    {
+        CoordMode, Pixel, Window
+        ImageSearch, CheckedX, CheckedY, %DropdownBottomLeftX%, %DropdownTopRightY%, %DropdownTopRightX%, %DropdownBottomLeftY%, *1 images\dropdown-checkbox.png
+        CenterImgSrchCoords("*1 images\dropdown-checkbox.png", CheckedX, CheckedY)
+        If ErrorLevel = 0
+        {
+            Click, %CheckedX%, %CheckedY% Left, 1
+            Sleep, 10
+            Sleep, 100
+        }
+    }
+    Sleep, 200
+    DropdownRetimeSpeedX := DropdownBottomLeftX
+    DropdownRetimeSpeedX += 4
+    DropdownRetimeSpeedY := DropdownBottomLeftY
+    DropdownRetimeSpeedY -= 35
+    Click, %DropdownRetimeSpeedX%, %DropdownRetimeSpeedY% Left, 1
+    Sleep, 10
+    Sleep, 200
+    DropdownRetimeSpeedX += 15
+    Click, %DropdownRetimeSpeedX%, %DropdownRetimeSpeedY% Left, 1
+    Sleep, 10
+    Click, %StartMouseX%, %StartMouseY%, 0
+    Sleep, 10
     Return
 }
 /*

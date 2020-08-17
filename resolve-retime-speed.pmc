@@ -9,112 +9,122 @@ Groups=Start:1
 7|Return||1|0|Return|||||
 8|[End If]|EndIf|1|0|If_Statement|||||
 9|WinActivate||1|333|WinActivate||ahk_exe Resolve.exe|||
-010|[MsgBox]|Find timeline icon for setting search boundaries:|1|0|MsgBox|0||||
-11|Continue, Stop, TimelineCursorX, TimelineCursorY, 0|0, 0, %A_ScreenWidth%, %A_ScreenHeight%, images\edit-page-timeline-settings.png|1|0|ImageSearch||Window|||
-12|If Image/Pixel Found||1|0|If_Statement|||||
-13|[Assign Variable]|ClipSearchBeginX := %TimelineCursorX% + 100|1|0|Variable|Expression||||
-14|[Assign Variable]|ClipSearchBeginY := %TimelineCursorY% + 75|1|0|Variable|Expression||||
-15|[Assign Variable]|ClipSearchEndX := %A_ScreenWidth%|1|0|Variable|||||
-16|[Assign Variable]|ClipSearchEndY := %A_ScreenHeight% - 90|1|0|Variable|Expression||||
-17|[Add Variable]|TimelineCursorY += 45|1|0|Variable|||||
-018|Move|%ClipSearchBeginX%, %ClipSearchBeginY%, 0|1|10|Click|||||
-019|[Pause]||1|5000|Sleep|||||
-20|[Else]|Else|1|0|If_Statement|||||
-21|[MsgBox]|No timeline has been found|1|0|MsgBox|0||||
-22|Return||1|0|Return|||||
-23|[End If]|EndIf|1|0|If_Statement|||||
-24|[Assign Variable]|ClickOnRetimeDropdownCount := 0|1|0|Variable|||||
-25|[Label]|ClickOnRetimeDropdown|1|0|Label|||||
-26|[Add Variable]|ClickOnRetimeDropdownCount += 1|1|0|Variable|||||
-27|Continue, Continue, ClipX, ClipY|%ClipSearchBeginX%, %ClipSearchBeginY%, %ClipSearchEndX%, %ClipSearchEndY%, 0xE64B3D, 0, Fast RGB|1|0|PixelSearch||Window|||
-28|If Image/Pixel Not Found||1|0|If_Statement|||||
-29|[MsgBox]|Please select video clip first|1|0|MsgBox|0||||
-30|Return||1|0|Return|||||
-31|[End If]|EndIf|1|0|If_Statement|||||
-032|[MsgBox]|Found %ClipX%`, %ClipY%|1|0|MsgBox|0||||
-33|FindClipEnd|ClipEndX := ClipX, ClipY|1|0|Function|||||
-34|Compare Variables|ClipEndX > 0|1|0|If_Statement|||||
-035|Move|%ClipEndX%, %ClipY%, 0|1|10|Click|||||
-036|[MsgBox]|Found the end of a clip %ClipEndX%!|1|0|MsgBox|0||||
-37|[Else]|Else|1|0|If_Statement|||||
-38|[Assign Variable]|ClipEndX := %A_ScreenWidth%|1|0|Variable|||||
-39|[End If]|EndIf|1|0|If_Statement|||||
-40|[Assign Variable]|ClipClickableX := %ClipX% + 20|1|0|Variable|Expression||||
-41|[Assign Variable]|ClipClickableY := %ClipY% + 5|1|0|Variable|Expression||||
-42|Continue, Continue, RetimeOpenedX, RetimeOpenedY, 0|%ClipX%, %ClipY%, %ClipEndX%, %ClipSearchEndY%, images\retime-is-opened.png|1|0|ImageSearch||Screen|||
-43|If Image/Pixel Not Found||1|0|If_Statement|||||
-044|[MsgBox]|If Retime is closed`, do the menu click|1|0|MsgBox|0||||
-45|Right Move & Click|%ClipClickableX%, %ClipClickableY% Right, 1|1|10|Click|||||
-046|[MsgBox]|Right Clicked on the selected Video Clip|1|0|MsgBox|0||||
-47|[Assign Variable]|MenuTopRightX := %ClipClickableX%|1|0|Variable|||||
-48|[Assign Variable]|MenuTopRightY := %ClipClickableY%|1|0|Variable|||||
-49|[Add Variable]|MenuTopRightX += 375|1|0|Variable|||||
-50|[Subtract Variable]|MenuTopRightY -= 758|1|0|Variable|||||
-51|[Pause]||1|300|Sleep|||||
-52|Move, Prompt, FoundX, FoundY, 1|%ClipClickableX%, %MenuTopRightY%, %MenuTopRightX%, %ClipClickableY%, images\retime-curve.png|1|0|ImageSearch||Window|||
-53|Left Click|Left, 1, |1|10|Click|||||
-054|[MsgBox]|Clicked on Retime Curve %A_ScreenWidth% %A_ScreenHeight%|1|0|MsgBox|0||||
-55|[Else]|Else|1|0|If_Statement|||||
-056|[MsgBox]|FOUND THE EVENT ICON!|1|0|MsgBox|0||||
-57|[End If]|EndIf|1|0|If_Statement|||||
-58|[Pause]||1|200|Sleep|||||
-59|Continue, Continue, RetimeFrameX, RetimeFrameY, 0|%ClipX%, %ClipSearchBeginY%, %ClipEndX%, %ClipSearchEndY%, images\retime-frame-dropdown.png|1|0|ImageSearch||Window|||
-60|If Image/Pixel Found||1|0|If_Statement|||||
-061|[MsgBox]|Found Retime Frame dropdown|1|0|MsgBox|0||||
-62|[Subtract Variable]|RetimeFrameX -= 9|1|0|Variable|||||
-63|[Add Variable]|RetimeFrameY += 13|1|0|Variable|||||
-64|Left Move & Click|%RetimeFrameX%, %RetimeFrameY% Left, 1|1|10|Click|||||
+10|MouseGetPos|StartMouseX, StartMouseY|1|0|MouseGetPos|||||
+011|[MsgBox]|Find timeline icon for setting search boundaries:|1|0|MsgBox|0||||
+12|Continue, Stop, TimelineCursorX, TimelineCursorY, 0|0, 0, %A_ScreenWidth%, %A_ScreenHeight%, images\edit-page-timeline-settings.png|1|0|ImageSearch||Window|||
+13|If Image/Pixel Found||1|0|If_Statement|||||
+14|[Assign Variable]|ClipSearchBeginX := %TimelineCursorX% + 100|1|0|Variable|Expression||||
+15|[Assign Variable]|ClipSearchBeginY := %TimelineCursorY% + 75|1|0|Variable|Expression||||
+16|[Assign Variable]|ClipSearchEndX := %A_ScreenWidth%|1|0|Variable|||||
+17|[Assign Variable]|ClipSearchEndY := %A_ScreenHeight% - 90|1|0|Variable|Expression||||
+18|[Add Variable]|TimelineCursorY += 45|1|0|Variable|||||
+019|Move|%ClipSearchBeginX%, %ClipSearchBeginY%, 0|1|10|Click|||||
+020|[Pause]||1|5000|Sleep|||||
+21|[Else]|Else|1|0|If_Statement|||||
+22|[MsgBox]|No timeline has been found|1|0|MsgBox|0||||
+23|Return||1|0|Return|||||
+24|[End If]|EndIf|1|0|If_Statement|||||
+25|[Assign Variable]|ClickOnRetimeDropdownCount := 0|1|0|Variable|||||
+26|[Label]|ClickOnRetimeDropdown|1|0|Label|||||
+27|[Add Variable]|ClickOnRetimeDropdownCount += 1|1|0|Variable|||||
+28|MouseGetPos|TempMouseX, TempMouseY|1|0|MouseGetPos|||||
+29|Move|0, 0, 0|1|10|Click|||||
+30|[Pause]||1|50|Sleep|||||
+31|Continue, Continue, ClipX, ClipY|%ClipSearchBeginX%, %ClipSearchBeginY%, %ClipSearchEndX%, %ClipSearchEndY%, 0xE64B3D, 0, Fast RGB|1|0|PixelSearch||Window|||
+32|Move|%TempMouseX%, %TempMouseY%, 0|1|10|Click|||||
+33|If Image/Pixel Not Found||1|0|If_Statement|||||
+34|[MsgBox]|Please select video clip first|1|0|MsgBox|0||||
+35|Return||1|0|Return|||||
+36|[End If]|EndIf|1|0|If_Statement|||||
+037|[MsgBox]|Found %ClipX%`, %ClipY%|1|0|MsgBox|0||||
+38|FindClipEnd|ClipEndX := ClipX, ClipY|1|0|Function|||||
+39|Compare Variables|ClipEndX > 0|1|0|If_Statement|||||
+040|Move|%ClipEndX%, %ClipY%, 0|1|10|Click|||||
+041|[MsgBox]|Found the end of a clip %ClipEndX%!|1|0|MsgBox|0||||
+42|[Else]|Else|1|0|If_Statement|||||
+43|[Assign Variable]|ClipEndX := %A_ScreenWidth%|1|0|Variable|||||
+44|[End If]|EndIf|1|0|If_Statement|||||
+45|[Assign Variable]|ClipClickableX := %ClipX% + 20|1|0|Variable|Expression||||
+46|[Assign Variable]|ClipClickableY := %ClipY% + 5|1|0|Variable|Expression||||
+47|Continue, Continue, RetimeOpenedX, RetimeOpenedY, 0|%ClipX%, %ClipY%, %ClipEndX%, %ClipSearchEndY%, *1 images\retime-is-opened.png|1|0|ImageSearch||Window|||
+48|If Image/Pixel Not Found||1|0|If_Statement|||||
+049|[MsgBox]|If Retime is closed`, do the menu click|1|0|MsgBox|0||||
+50|Right Move & Click|%ClipClickableX%, %ClipClickableY% Right, 1|1|10|Click|||||
+051|[MsgBox]|Right Clicked on the selected Video Clip|1|0|MsgBox|0||||
+52|[Assign Variable]|MenuTopRightX := %ClipClickableX%|1|0|Variable|||||
+53|[Add Variable]|MenuTopRightX += 375|1|0|Variable|||||
+54|[Pause]||1|300|Sleep|||||
+55|Move, Continue, FoundX, FoundY, 1|%ClipClickableX%, 0, %MenuTopRightX%, %A_ScreenHeight%, images\retime-curve.png|1|0|ImageSearch||Window|||
+56|If Image/Pixel Not Found||1|0|If_Statement|||||
+57|[MsgBox]|Menu has not been opened. Clip is either too narrow or not fully visible. Move it fully inside the view or zoom a bit.|1|0|MsgBox|0||||
+58|Return||1|0|Return|||||
+59|[End If]|EndIf|1|0|If_Statement|||||
+60|Left Click|Left, 1, |1|10|Click|||||
+061|[MsgBox]|Clicked on Retime Curve %A_ScreenWidth% %A_ScreenHeight%|1|0|MsgBox|0||||
+62|[Else]|Else|1|0|If_Statement|||||
+063|[MsgBox]|FOUND THE EVENT ICON!|1|0|MsgBox|0||||
+64|[End If]|EndIf|1|0|If_Statement|||||
 65|[Pause]||1|200|Sleep|||||
-066|[MsgBox]|Finding and clicking on "Retime Speed" and "Retime Frame"...|1|0|MsgBox|0||||
-67|Continue, Continue, MenuRetimeSpeedX, MenuRetimeSpeedY, 0|%ClipX%, %ClipSearchBeginY%, %ClipEndX%, %A_ScreenHeight%, images\menu-retime-speed.png|1|0|ImageSearch||Window|||
-68|If Image/Pixel Found||1|0|If_Statement|||||
-069|[MsgBox]|Menu "Retime Speed" has been found!|1|0|MsgBox|0||||
-70|[Add Variable]|MenuRetimeSpeedX += 5|1|0|Variable|||||
-71|[Add Variable]|MenuRetimeSpeedY += 9|1|0|Variable|||||
-072|[MsgBox]|Click on the Retime Frame first`, so that Speed is last and active|1|0|MsgBox|0||||
-73|[Add Variable]|MenuRetimeSpeedY += 25|1|0|Variable|||||
-74|Left Move & Click|%MenuRetimeSpeedX%, %MenuRetimeSpeedY% Left, 1|1|10|Click|||||
-75|[Pause]||1|200|Sleep|||||
-76|[Subtract Variable]|MenuRetimeSpeedY -= 25|1|0|Variable|||||
-77|Left Move & Click|%MenuRetimeSpeedX%, %MenuRetimeSpeedY% Left, 1|1|10|Click|||||
-78|[Pause]||1|200|Sleep|||||
-79|[Else]|Else|1|0|If_Statement|||||
-080|[MsgBox]|Menu has not been opened`, OR Retime Speed is already active?!|1|0|MsgBox|0||||
-81|Continue, Continue, MenuRetimeFrameX, MenuRetimeFrameY, 0|%ClipX%, %ClipSearchBeginY%, %ClipEndX%, %A_ScreenHeight%, images\menu-retime-frame-active.png|1|0|ImageSearch||Window|||
-82|If Image/Pixel Found||1|0|If_Statement|||||
-083|[MsgBox]|Retime Frame has to be declicked and Retime Speed activated|1|0|MsgBox|0||||
-84|[Add Variable]|MenuRetimeFrameX += 5|1|0|Variable|||||
-85|[Add Variable]|MenuRetimeFrameY += 9|1|0|Variable|||||
-086|[MsgBox]|Click on the Retime Frame first`, ACTIVATE Speed later|1|0|MsgBox|0||||
-87|Left Move & Click|%MenuRetimeFrameX%, %MenuRetimeFrameY% Left, 1|1|10|Click|||||
-88|[Pause]||1|200|Sleep|||||
-89|[Subtract Variable]|MenuRetimeFrameY -= 25|1|0|Variable|||||
-90|[Add Variable]|MenuRetimeFrameX += 30|1|0|Variable|||||
-91|Left Move & Click|%MenuRetimeFrameX%, %MenuRetimeFrameY% Left, 1|1|10|Click|||||
-92|[End If]|EndIf|1|0|If_Statement|||||
-93|[End If]|EndIf|1|0|If_Statement|||||
-94|Left Move & Click|%ClipX%, %ClipY% Left, 1|1|10|Click|||||
-95|Return||1|0|Return|||||
-96|[End If]|EndIf|1|0|If_Statement|||||
-097|[MsgBox]|No Retime Frame`, need to zoom in?|1|0|MsgBox|0||||
-98|Continue, Continue, RetimeSpeedX, RetimeSpeedY, 0|%ClipX%, %ClipSearchBeginY%, %ClipEndX%, %A_ScreenHeight%, images\retime-speed-dropdown-active-check.png|1|0|ImageSearch||Window|||
-99|If Image/Pixel Found||1|0|If_Statement|||||
-100|[MsgBox]|Retime Speed is already opened`, return|1|0|MsgBox|0||||
-101|Return||1|0|Return|||||
-102|[End If]|EndIf|1|0|If_Statement|||||
-0103|[MsgBox]|No Retime Frame`, need to zoom in|1|0|MsgBox|0||||
-104|Left Move & Click|%ClipX%, %TimelineCursorY% Left, 1|1|10|Click|||||
-0105|[MsgBox]|Clicked on the timeline playhead near the clip to zoom in next|1|0|MsgBox|0||||
-106|LControl Down|{LControl Down}|1|0|Send|||||
-107|= Down|{= Down}|1|0|Send|||||
-108|= Up|{= Up}|1|0|Send|||||
-109|LControl Up|{LControl Up}|1|0|Send|||||
-110|[Pause]||1|200|Sleep|||||
-111|Compare Variables|ClickOnRetimeDropdownCount <= 5|1|0|If_Statement|||||
-0112|[MsgBox]|Zoomed in`, trying again...|1|0|MsgBox|0||||
-113|[Goto]|ClickOnRetimeDropdown|1|0|Goto|||||
-114|[End If]|EndIf|1|0|If_Statement|||||
-115|[MsgBox]|Unknown error`, probably couldn't find some elements.|1|0|MsgBox|0||||
+66|Continue, Continue, RetimeSpeedX, RetimeSpeedY, 0|%ClipX%, %ClipSearchBeginY%, %ClipEndX%, %A_ScreenHeight%, images\retime-speed-dropdown-active-check.png|1|0|ImageSearch||Window|||
+67|If Image/Pixel Found||1|0|If_Statement|||||
+068|[MsgBox]|Retime Speed is already opened`, return|1|0|MsgBox|0||||
+69|Return||1|0|Return|||||
+70|[End If]|EndIf|1|0|If_Statement|||||
+71|Continue, Continue, RetimeFrameX, RetimeFrameY, 1|%ClipX%, %ClipSearchBeginY%, %ClipEndX%, %ClipSearchEndY%, *1 images\retime-frame-dropdown.png|1|0|ImageSearch||Window|||
+72|If Image/Pixel Found||1|0|If_Statement|||||
+073|[MsgBox]|Found Retime Frame dropdown|1|0|MsgBox|0||||
+74|PixelGetColor|RetimeFrameColor, RetimeFrameX, RetimeFrameY|1|0|PixelGetColor|||||
+75|Left Move & Click|%RetimeFrameX%, %RetimeFrameY% Left, 1|1|10|Click|||||
+76|Continue, Continue, FoundX, FoundY|%RetimeFrameX%, %RetimeFrameY%, %RetimeFrameX%, %RetimeFrameY%, %RetimeFrameColor%, 0, Fast RGB|60|50|PixelSearch|UntilNotFound|Window|||
+77|[Pause]||1|100|Sleep|||||
+78|[Add Variable]|RetimeFrameY += 15|1|0|Variable|||||
+079|[MsgBox]|Finding and clicking on "Retime Speed" and "Retime Frame"...|1|0|MsgBox|0||||
+80|Continue, Continue, DropdownBottomLeftX, DropdownBottomLeftY|%RetimeFrameX%, %RetimeFrameY%, %RetimeFrameX%, %A_ScreenHeight%, 0x090909, 0, Fast RGB|1|0|PixelSearch||Screen|||
+81|If Image/Pixel Not Found||1|0|If_Statement|||||
+82|[MsgBox]|Couldn't find the end of Dropdown Menu`, exiting.|1|0|MsgBox|0||||
+83|Return||1|0|Return|||||
+84|[End If]|EndIf|1|0|If_Statement|||||
+085|Move|%DropdownBottomLeftX%, %DropdownBottomLeftY%, 0|1|10|Click|||||
+086|[Pause]||1|4000|Sleep|||||
+87|[Assign Variable]|DropdownTopRightX := DropdownBottomLeftX|1|0|Variable|Expression||||
+88|[Add Variable]|DropdownTopRightX += 20|1|0|Variable|||||
+89|[Assign Variable]|DropdownTopRightY := DropdownBottomLeftY|1|0|Variable|Expression||||
+90|[Subtract Variable]|DropdownTopRightY -= 55|1|0|Variable|||||
+091|Move|%DropdownTopRightX%, %DropdownTopRightY%, 0|1|10|Click|||||
+092|[Pause]||1|1000|Sleep|||||
+093|[MsgBox]|Finding max 2 checked items and unchecking them|1|0|MsgBox|0||||
+94|[LoopStart]|LoopStart|2|0|Loop|||||
+95|Continue, Continue, CheckedX, CheckedY, 1|%DropdownBottomLeftX%, %DropdownTopRightY%, %DropdownTopRightX%, %DropdownBottomLeftY%, *1 images\dropdown-checkbox.png|1|0|ImageSearch||Window|||
+96|If Image/Pixel Found||1|0|If_Statement|||||
+97|Left Move & Click|%CheckedX%, %CheckedY% Left, 1|1|10|Click|||||
+98|[Pause]||1|100|Sleep|||||
+99|[End If]|EndIf|1|0|If_Statement|||||
+100|[LoopEnd]|LoopEnd|1|0|Loop|||||
+101|[Pause]||1|200|Sleep|||||
+102|[Assign Variable]|DropdownRetimeSpeedX := DropdownBottomLeftX|1|0|Variable|Expression||||
+103|[Add Variable]|DropdownRetimeSpeedX += 4|1|0|Variable|||||
+104|[Assign Variable]|DropdownRetimeSpeedY := DropdownBottomLeftY|1|0|Variable|Expression||||
+105|[Subtract Variable]|DropdownRetimeSpeedY -= 35|1|0|Variable|||||
+106|Left Move & Click|%DropdownRetimeSpeedX%, %DropdownRetimeSpeedY% Left, 1|1|10|Click|||||
+107|[Pause]||1|200|Sleep|||||
+108|[Add Variable]|DropdownRetimeSpeedX += 15|1|0|Variable|||||
+109|Left Move & Click|%DropdownRetimeSpeedX%, %DropdownRetimeSpeedY% Left, 1|1|10|Click|||||
+110|Move|%StartMouseX%, %StartMouseY%, 0|1|10|Click|||||
+111|Return||1|0|Return|||||
+112|[End If]|EndIf|1|0|If_Statement|||||
+0113|[MsgBox]|No Retime Frame`, need to zoom in|1|0|MsgBox|0||||
+114|Left Move & Click|%ClipX%, %TimelineCursorY% Left, 1|1|10|Click|||||
+0115|[MsgBox]|Clicked on the timeline playhead near the clip to zoom in next|1|0|MsgBox|0||||
+116|LControl Down|{LControl Down}|1|0|Send|||||
+117|= Down|{= Down}|1|0|Send|||||
+118|= Up|{= Up}|1|0|Send|||||
+119|LControl Up|{LControl Up}|1|0|Send|||||
+120|[Pause]||1|200|Sleep|||||
+121|Compare Variables|ClickOnRetimeDropdownCount <= 5|1|0|If_Statement|||||
+0122|[MsgBox]|Zoomed in`, trying again...|1|0|MsgBox|0||||
+123|[Goto]|ClickOnRetimeDropdown|1|0|Goto|||||
+124|[End If]|EndIf|1|0|If_Statement|||||
+125|[MsgBox]|Unknown error`, probably couldn't find some elements.|1|0|MsgBox|0||||
 
 [PMC Code v5.0.5]|||1|Window,2,Fast,0,1,Input,-1,-1,1|1|FindClipEnd()
 Groups=Start:1
