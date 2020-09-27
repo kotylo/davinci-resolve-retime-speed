@@ -35,7 +35,7 @@ Also you can use Pulover's Macro Creator, it's the same Script, but in different
 # Versioning
 ### **v1.0.2**
 - Added tolerance to image search
-- Removed some image dependancies
+- Removed some image dependencies
 
 ### **v1.0.1**
 Add more debugging in case images folder is not present
