@@ -63,7 +63,9 @@ Click, 0, 0, 0
 Sleep, 10
 Sleep, 50
 CoordMode, Pixel, Window
-PixelSearch, ClipX, ClipY, %ClipSearchBeginX%, %ClipSearchBeginY%, %ClipSearchEndX%, %ClipSearchEndY%, 0xE64B3D, 0, Fast RGB
+; Search the beginning of the Video clip by two pixels of red (two, to avoid the cursor of timeline)
+; PixelSearch, ClipX, ClipY, %ClipSearchBeginX%, %ClipSearchBeginY%, %ClipSearchEndX%, %ClipSearchEndY%, 0xE64B3D, 0, Fast RGB
+ImageSearch, ClipX, ClipY, %ClipSearchBeginX%, %ClipSearchBeginY%, %ClipSearchEndX%, %ClipSearchEndY%, images\video-edge.png
 Click, %TempMouseX%, %TempMouseY%, 0
 Sleep, 10
 If ErrorLevel
@@ -96,7 +98,7 @@ If ErrorLevel
     /*
     MsgBox, 0, , If Retime is closed`, do the menu click
     */
-    Click, %ClipClickableX%, %ClipClickableY% Right, 1
+     Click, %ClipClickableX%, %ClipClickableY% Right, 1
     Sleep, 10
     /*
     MsgBox, 0, , Right Clicked on the selected Video Clip
@@ -163,8 +165,10 @@ If ErrorLevel = 0
     PixelSearch, DropdownBottomLeftX, DropdownBottomLeftY, %RetimeFrameX%, %RetimeFrameY%, %RetimeFrameX%, %A_ScreenHeight%, 0x090909, 0, Fast RGB
     If ErrorLevel
     {
-        MsgBox, 0, , Couldn't find the end of Dropdown Menu`, exiting.
-        Return
+        DropdownBottomLeftX := RetimeFrameX
+        DropdownBottomLeftY := A_ScreenHeight
+        ;MsgBox, 0, , Couldn't find the end of Dropdown Menu`, exiting.
+        ;Return
     }
     /*
     Click, %DropdownBottomLeftX%, %DropdownBottomLeftY%, 0
