@@ -5,6 +5,8 @@ This is AHK Script, designed to fix the lack of configuration in otherwise good 
 
 By default, Resolve opens up the **Retime Frame**, which is not useful at all. People on the [blackmagic forum](https://forum.blackmagicdesign.com/viewtopic.php?f=33&t=102519) have raised the Feature Request for v17, but instead of waiting for *possible* changes, let's act and achieve auto preselection of **Retime Speed** now!
 
+*Update December 2020*: In v17 Beta 4 still no support.
+
 # Installing
 
 ## Prerequisites
@@ -15,7 +17,7 @@ By default, Resolve opens up the **Retime Frame**, which is not useful at all. P
 
 ## Installation
 
-You just have to unzip the script from **bin** folder (with **images** folder inside) to some location and run `resolve-retime-speed.exe`. The script will stay in the Windows Tray, listening for hotkey within Davinci Resolve.
+You just have to unzip the script from **bin** folder (with **images** folder inside) to some location and run `ahk-resolve-retime-speed.exe`. The script will stay in the Windows Tray, listening for hotkey within Davinci Resolve.
 
 *Hint:* Put the shortcut inside your `Win+R` → `shell:startup` → `OK` location for starting with Windows.
 
@@ -33,7 +35,12 @@ You need [AutoHotkey]([https://www.autohotkey.com/download/), it's a Script App 
 Also you can use Pulover's Macro Creator, it's the same Script, but in different format.
 
 # Versioning
-### **v1.0.2**
+### **v1.1.0** (Resolve **v17**)
+- Added **Davinci Resolve 17** support
+- Added two pixel search of the selected Video clip (to avoid timeline cursor match)
+- Renamed resolve-*** to ahk-resolve-*** in order to kill Resolve in Task Manager faster
+
+### **v1.0.2** (Resolve v16)
 - Added tolerance to image search
 - Removed some image dependencies
 
